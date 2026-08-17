@@ -4,10 +4,21 @@ import { useEffect, useState } from "react";
 import { useLang } from "@/context/LanguageContext";
 import { createClient } from "@/lib/supabase/client";
 
+const heroImages = ["/images/barbora-body.jpeg", "/images/barbora-portrait.jpeg"];
+
 export default function Hero() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [currentImg, setCurrentImg] = useState(0);
+
   useEffect(() => {
     createClient().auth.getUser().then(({ data: { user } }) => setLoggedIn(!!user));
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImg((prev) => (prev + 1) % heroImages.length);
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
   const { t } = useLang();
 
@@ -51,11 +62,14 @@ export default function Hero() {
         </div>
         <div className="hero-image">
           <div className="hero-image-wrapper">
-            <img
-              src="/images/barbora-body.jpeg"
-              alt="Barbora Paskova"
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
+            {heroImages.map((src, i) => (
+              <img
+                key={src}
+                src={src}
+                alt="Barbora Pašková"
+                className={`hero-slide ${i === currentImg ? "active" : ""}`}
+              />
+            ))}
           </div>
         </div>
       </div>
