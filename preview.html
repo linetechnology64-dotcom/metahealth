@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MetaHealth — Barbora Paskova</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy:    #222939;
+      --copper:  #AF7761;
+      --salmon:  #D6997D;
+      --brown:   #78594F;
+      --cream:   #F2E7E0;
+      --bg:      #FAF7F5;
+      --white:   #FFFFFF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--navy);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Navigation ──────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(250, 247, 245, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(175, 119, 97, 0.1);
+      transition: box-shadow 0.3s;
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-logo img {
+      height: 48px;
+      width: auto;
+      border-radius: 6px;
+    }
+
+    .nav-logo span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.02em;
+    }
+
+    /* old nav-links removed — using hamburger menu */
+
+    /* ── Hero ─────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      background: linear-gradient(
+        165deg,
+        var(--bg) 0%,
+        var(--cream) 40%,
+        rgba(214, 153, 125, 0.12) 100%
+      );
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -15%;
+      width: 650px;
+      height: 650px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(175, 119, 97, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 20px;
+      position: relative;
+      padding-left: 36px;
+    }
+
+    .hero-tag::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 24px;
+      height: 1px;
+      background: var(--copper);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      color: var(--navy);
+      margin-bottom: 24px;
+      font-weight: 300;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--copper);
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--brown);
+      max-width: 480px;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--navy);
+      color: var(--cream);
+      padding: 16px 36px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: var(--copper);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(175, 119, 97, 0.25);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--navy);
+      padding: 16px 36px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      border: 1.5px solid var(--copper);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background: var(--copper);
+      color: var(--cream);
+      transform: translateY(-2px);
+    }
+
+    .hero-image {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      background: linear-gradient(145deg, var(--cream), rgba(214, 153, 125, 0.3));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-image-wrapper .placeholder-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--brown);
+      opacity: 0.6;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .hero-image-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      border: 1px solid rgba(175, 119, 97, 0.15);
+      pointer-events: none;
+    }
+
+    /* ── Section Shared ──────────────────────────── */
+    section { padding: 120px 0; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--brown);
+      max-width: 560px;
+      font-weight: 300;
+    }
+
+    /* ── About / Philosophy ──────────────────────── */
+    .about {
+      background: var(--white);
+    }
+
+    .about .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-image {
+      aspect-ratio: 1;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--cream), rgba(175, 119, 97, 0.15));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-image .placeholder-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--brown);
+      opacity: 0.5;
+    }
+
+    .about-content .section-subtitle {
+      margin-bottom: 32px;
+    }
+
+    .about-pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .pillar {
+      padding: 20px;
+      background: var(--bg);
+      border-radius: 12px;
+      border-left: 3px solid var(--copper);
+    }
+
+    .pillar h4 {
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .pillar p {
+      font-size: 0.85rem;
+      color: var(--brown);
+      font-weight: 300;
+    }
+
+    /* ── Services ─────────────────────────────────── */
+    .services { background: var(--bg); }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .services-header .section-subtitle {
+      margin: 0 auto;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px 32px;
+      transition: all 0.35s;
+      border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--copper), var(--salmon));
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(34, 41, 57, 0.08);
+      border-color: rgba(175, 119, 97, 0.12);
+    }
+
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+    }
+
+    .service-card h3 {
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--brown);
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+
+    .service-link {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--copper);
+      transition: gap 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .service-link:hover { gap: 12px; }
+
+    /* ── Testimonials ────────────────────────────── */
+    .testimonials {
+      background: var(--navy);
+      color: var(--cream);
+    }
+
+    .testimonials .section-tag { color: var(--salmon); }
+    .testimonials .section-title { color: var(--cream); }
+    .testimonials .section-subtitle { color: rgba(242, 231, 224, 0.6); }
+
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .testimonials-header .section-subtitle { margin: 0 auto; }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(242, 231, 224, 0.08);
+      border-radius: 16px;
+      padding: 36px;
+      transition: all 0.3s;
+    }
+
+    .testimonial-card:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(175, 119, 97, 0.3);
+    }
+
+    .testimonial-stars {
+      color: var(--salmon);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      letter-spacing: 3px;
+    }
+
+    .testimonial-card blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.7;
+      color: rgba(242, 231, 224, 0.85);
+      margin-bottom: 24px;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--copper), var(--salmon));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--cream);
+    }
+
+    .testimonial-author-info strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--cream);
+    }
+
+    .testimonial-author-info span {
+      font-size: 0.75rem;
+      color: rgba(242, 231, 224, 0.45);
+    }
+
+    /* ── How It Works ────────────────────────────── */
+    .how-it-works { background: var(--white); }
+
+    .how-it-works-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    .how-it-works-header .section-subtitle { margin: 0 auto; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: 12%;
+      right: 12%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cream), var(--copper), var(--salmon), var(--cream));
+    }
+
+    .step {
+      text-align: center;
+      position: relative;
+    }
+
+    .step-number {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--copper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--copper);
+      position: relative;
+      z-index: 1;
+    }
+
+    .step h3 {
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      font-size: 0.85rem;
+      color: var(--brown);
+      font-weight: 300;
+    }
+
+    /* ── CTA Banner ──────────────────────────────── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--cream) 0%, rgba(214, 153, 125, 0.2) 100%);
+      padding: 100px 0;
+    }
+
+    .cta-content {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta-content h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+
+    .cta-content p {
+      font-size: 1.05rem;
+      color: var(--brown);
+      margin-bottom: 36px;
+      font-weight: 300;
+    }
+
+    /* ── Auth Preview (Login / Sign Up) ──────────── */
+    .auth-preview { background: var(--bg); }
+
+    .auth-preview-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .auth-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .auth-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 44px 36px;
+      box-shadow: 0 4px 24px rgba(34, 41, 57, 0.04);
+      border: 1px solid rgba(175, 119, 97, 0.08);
+    }
+
+    .auth-card h3 {
+      font-size: 1.6rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .auth-card > p {
+      font-size: 0.85rem;
+      color: var(--brown);
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brown);
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1.5px solid rgba(120, 89, 79, 0.2);
+      background: var(--bg);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--navy);
+      transition: border-color 0.25s;
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: var(--copper);
+    }
+
+    .form-group input::placeholder {
+      color: rgba(120, 89, 79, 0.4);
+    }
+
+    .auth-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background: var(--navy);
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 8px;
+    }
+
+    .auth-btn:hover {
+      background: var(--copper);
+      transform: translateY(-1px);
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 20px 0;
+      font-size: 0.75rem;
+      color: var(--brown);
+      opacity: 0.5;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(120, 89, 79, 0.2);
+    }
+
+    .auth-social {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid rgba(120, 89, 79, 0.15);
+      border-radius: 8px;
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: var(--navy);
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .auth-social:hover {
+      border-color: var(--copper);
+      background: var(--cream);
+    }
+
+    /* ── Footer ──────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      color: rgba(242, 231, 224, 0.6);
+      padding: 72px 0 36px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand h3 {
+      font-size: 1.6rem;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      max-width: 300px;
+    }
+
+    .footer-col h4 {
+      font-size: 0.75rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--salmon);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col a {
+      font-size: 0.9rem;
+      transition: color 0.25s;
+    }
+
+    .footer-col a:hover { color: var(--cream); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(242, 231, 224, 0.08);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    /* ── Hamburger Menu ──────────────────────────── */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 8px;
+      z-index: 200;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--navy);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lang-switch {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brown);
+      background: none;
+      border: 1.5px solid rgba(120, 89, 79, 0.2);
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .lang-switch:hover {
+      border-color: var(--copper);
+      color: var(--copper);
+    }
+
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(34, 41, 57, 0.3);
+      z-index: 140;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 300px;
+      max-width: 80vw;
+      background: var(--bg);
+      border-left: 1px solid rgba(175, 119, 97, 0.12);
+      z-index: 150;
+      display: flex;
+      flex-direction: column;
+      padding: 100px 36px 40px;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mobile-menu ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--navy);
+      transition: color 0.25s, padding-left 0.25s;
+      display: block;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(175, 119, 97, 0.08);
+    }
+
+    .mobile-menu a:hover {
+      color: var(--copper);
+      padding-left: 8px;
+    }
+
+    .mobile-menu .nav-cta-mobile {
+      margin-top: 28px;
+      display: block;
+      text-align: center;
+      background: var(--navy);
+      color: var(--cream);
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.25s;
+      border-bottom: none;
+    }
+
+    .mobile-menu .nav-cta-mobile:hover {
+      background: var(--copper);
+      padding-left: 0;
+    }
+
+    /* ── Certificates ────────────────────────────── */
+    .certificates { background: var(--bg); }
+
+    .certificates-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .certificates-header .section-subtitle { margin: 0 auto; }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .cert-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(175, 119, 97, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .cert-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(34, 41, 57, 0.08);
+    }
+
+    .cert-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .cert-card-info {
+      padding: 16px 20px;
+    }
+
+    .cert-card-info h4 {
+      font-size: 1.05rem;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .cert-card-info p {
+      font-size: 0.8rem;
+      color: var(--brown);
+      font-weight: 300;
+    }
+
+    @media (max-width: 640px) {
+      .cert-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Responsive ──────────────────────────────── */
+    @media (max-width: 968px) {
+      .hero .container { grid-template-columns: 1fr; gap: 48px; }
+      .hero-image { display: none; }
+      .about .container { grid-template-columns: 1fr; gap: 40px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .steps::before { display: none; }
+      .auth-cards { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .about-pillars { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav>
+    <div class="container">
+      <a href="#" class="nav-logo">
+        <img src="https://cdn.discordapp.com/attachments/1400735557587435606/1538607745463226428/e9183f3f-48c2-411b-8b65-73bddd78ec2d.jpg?ex=6a834ba0&is=6a81fa20&hm=f53695dd4ce3913283399afac15d9c8143dcd50ff3645c7bf24b4b780f3353e5&" alt="MetaHealth Logo" />
+        <span>MetaHealth</span>
+      </a>
+      <div class="nav-right">
+        <button class="lang-switch" id="langBtn">EN</button>
+        <button class="hamburger" id="menuBtn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ MENU OVERLAY ═══ -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- ═══ SIDE DRAWER MENU ═══ -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#about" class="menu-link" data-cs="O mne" data-en="About">O mne</a></li>
+      <li><a href="#certificates" class="menu-link" data-cs="Certifikaty" data-en="Certificates">Certifikaty</a></li>
+      <li><a href="#services" class="menu-link" data-cs="Sluzby" data-en="Services">Sluzby</a></li>
+      <li><a href="#process" class="menu-link" data-cs="Proces" data-en="Process">Proces</a></li>
+      <li><a href="#testimonials" class="menu-link" data-cs="Reference" data-en="Testimonials">Reference</a></li>
+    </ul>
+    <a href="#auth" class="nav-cta-mobile menu-link" data-cs="Zacit" data-en="Get Started">Zacit</a>
+  </div>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-tag" data-cs="Bunecne zdravi &amp; vitalita" data-en="Cellular Wealth &amp; Vitality">Bunecne zdravi &amp; vitalita</span>
+        <h1 data-cs="Odemknete potencial<br /><em>sveho tela</em>" data-en="Unlock Your Body's<br /><em>Deepest Potential</em>">Odemknete potencial<br /><em>sveho tela</em></h1>
+        <p data-cs="Certifikovana nutricni poradkyne Barbora Paskova vam pomuze zmenit zivot skrze personalizovane stravovani a bunecne zdravi. Sama zhubla 30 kg diky svemu vlastnimu planu." data-en="Certified nutritionist Barbora Paskova will help you transform your life through personalised nutrition and cellular health. She herself lost 30 kg using her own dietary plan.">Certifikovana nutricni poradkyne Barbora Paskova vam pomuze zmenit zivot skrze personalizovane stravovani a bunecne zdravi. Sama zhubla 30 kg diky svemu vlastnimu planu.</p>
+        <div class="hero-buttons">
+          <a href="#auth" class="btn-primary" data-cs="Objednat konzultaci &rarr;" data-en="Book a Consultation &rarr;">Objednat konzultaci &rarr;</a>
+          <a href="#about" class="btn-secondary" data-cs="Zjistit vice" data-en="Learn More">Zjistit vice</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <div class="hero-image-wrapper">
+          <img src="images/barbora-body.jpeg" alt="Barbora Paskova" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT / PHILOSOPHY ═══ -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-image">
+        <img src="images/barbora-portrait.jpeg" alt="Barbora Paskova" style="width:100%;height:100%;object-fit:cover;border-radius:20px;" />
+      </div>
+      <div class="about-content">
+        <span class="section-tag" data-cs="O mne" data-en="About Me">O mne</span>
+        <h2 class="section-title" data-cs="Barbora Paskova" data-en="Barbora Paskova">Barbora Paskova</h2>
+        <p class="section-subtitle" data-cs="Jsem certifikovana nutricni poradkyne z Ceske republiky. Po letech hledani spravne cesty ke zdravi jsem objevila silu bunecne vyzivy a sama zhubla 30 kilogramu. Dnes pomahom ostatnim najit jejich vlastni cestu ke zdravi a vitalite — bez diet, bez hladoveni, pouze s vedecky podlozenymi metodami." data-en="I am a certified nutritionist from the Czech Republic. After years of searching for the right path to health, I discovered the power of cellular nutrition and lost 30 kilograms myself. Today I help others find their own path to health and vitality — no diets, no starving, just science-backed methods.">Jsem certifikovana nutricni poradkyne z Ceske republiky. Po letech hledani spravne cesty ke zdravi jsem objevila silu bunecne vyzivy a sama zhubla 30 kilogramu. Dnes pomahom ostatnim najit jejich vlastni cestu ke zdravi a vitalite — bez diet, bez hladoveni, pouze s vedecky podlozenymi metodami.</p>
+        <div class="about-pillars">
+          <div class="pillar">
+            <h4 data-cs="Bunecna vyziva" data-en="Cellular Nutrition">Bunecna vyziva</h4>
+            <p data-cs="Cilene protokoly pro podporu mitochondrialniho zdravi a bunecne regenerace." data-en="Targeted protocols to fuel mitochondrial health and cellular regeneration.">Cilene protokoly pro podporu mitochondrialniho zdravi a bunecne regenerace.</p>
+          </div>
+          <div class="pillar">
+            <h4 data-cs="Zdravi strev" data-en="Gut Health">Zdravi strev</h4>
+            <p data-cs="Obnova mikrobiomu pro lepsi vstrebavani zivin a posileni imunity." data-en="Restore your microbiome to optimise nutrient absorption and immunity.">Obnova mikrobiomu pro lepsi vstrebavani zivin a posileni imunity.</p>
+          </div>
+          <div class="pillar">
+            <h4 data-cs="Metabolicka rovnovaha" data-en="Metabolic Balance">Metabolicka rovnovaha</h4>
+            <p data-cs="Kalibrace hormonalnich a metabolickych drah pro dlouhodobou energii." data-en="Recalibrate hormonal and metabolic pathways for sustained energy.">Kalibrace hormonalnich a metabolickych drah pro dlouhodobou energii.</p>
+          </div>
+          <div class="pillar">
+            <h4 data-cs="Vitalita tela i mysli" data-en="Mind-Body Vitality">Vitalita tela i mysli</h4>
+            <p data-cs="Holisticke strategie propojujici vyzivu, pohyb a dusevni jasnost." data-en="Holistic strategies bridging nutrition, movement, and mental clarity.">Holisticke strategie propojujici vyzivu, pohyb a dusevni jasnost.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CERTIFICATES ═══ -->
+  <section class="certificates" id="certificates">
+    <div class="container">
+      <div class="certificates-header">
+        <span class="section-tag" data-cs="Kvalifikace" data-en="Credentials">Kvalifikace</span>
+        <h2 class="section-title" data-cs="Certifikaty a vzdelani" data-en="Certificates & Education">Certifikaty a vzdelani</h2>
+        <p class="section-subtitle" data-cs="Akreditovane kurzy od NutriAcademy (akreditace MSMT). Barbora Paskova, DiS." data-en="Accredited courses from NutriAcademy (MSMT accreditation). Barbora Paskova, DiS.">Akreditovane kurzy od NutriAcademy (akreditace MSMT). Barbora Paskova, DiS.</p>
+      </div>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <img src="images/cert-1.jpg" alt="Certifikat - Vyzivovy poradce" />
+          <div class="cert-card-info">
+            <h4>Vyzivovy poradce — Online program</h4>
+            <p>NutriAcademy, 150 studijnich hodin</p>
+          </div>
+        </div>
+        <div class="cert-card">
+          <img src="images/cert-2.jpg" alt="Certifikat - Keto &amp; Low Carb + Probiotika" />
+          <div class="cert-card-info">
+            <h4>Keto &amp; Low Carb + Probiotika</h4>
+            <p>NutriAcademy</p>
+          </div>
+        </div>
+        <div class="cert-card">
+          <img src="images/cert-3.jpg" alt="Certifikat - Prvni pomoc" />
+          <div class="cert-card-info">
+            <h4>Certifikat prvni pomoci</h4>
+            <p>NutriAcademy, akreditace MSMT</p>
+          </div>
+        </div>
+        <div class="cert-card">
+          <img src="images/cert-4.jpg" alt="Certifikat - Senzoricka analyza potravin" />
+          <div class="cert-card-info">
+            <h4>Senzoricka analyza potravin</h4>
+            <p>NutriAcademy, akreditace MSMT</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SERVICES ═══ -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="services-header">
+        <span class="section-tag" data-cs="Co nabizim" data-en="What I Offer">Co nabizim</span>
+        <h2 class="section-title" data-cs="Personalizovane koucovaci sluzby" data-en="Personalised Coaching Services">Personalizovane koucovaci sluzby</h2>
+        <p class="section-subtitle" data-cs="Kazdy program je pristizpusoben vasi jedinecne biologii, zivotnmu stylu a cilum. Zadne sablony, zadne genericke rady — pouze vedecky podlozene strategie navrznene pro vas." data-en="Every programme is tailored to your unique biology, lifestyle, and goals. No templates, no generic advice — just science-backed strategies designed for you.">Kazdy program je pristizpusoben vasi jedinecne biologii, zivotnmu stylu a cilum. Zadne sablony, zadne genericke rady — pouze vedecky podlozene strategie navrznene pro vas.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">&#x1F331;</div>
+          <h3 data-cs="Individualni koucink" data-en="1-on-1 Coaching">Individualni koucink</h3>
+          <p data-cs="Hloubkove konzultace s prubeznnou podporou. Zhodnotime vasi zdravotni historii, laboratorni vysledky a zivotni styl pro vytvoreni personalniho planu." data-en="Deep-dive consultations with ongoing support. We assess your health history, lab work, and lifestyle to build a personalised cellular nutrition plan.">Hloubkove konzultace s prubeznnou podporou. Zhodnotime vasi zdravotni historii, laboratorni vysledky a zivotni styl pro vytvoreni personalniho planu.</p>
+          <a href="#" class="service-link" data-cs="Vice informaci &rarr;" data-en="Learn More &rarr;">Vice informaci &rarr;</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#x1F34E;</div>
+          <h3 data-cs="Nutricni plany" data-en="Nutrition Plans">Nutricni plany</h3>
+          <p data-cs="Jidelnicek na miru podle vaseho metabolickeho typu, potravinovych citlivosti a cilu bunecneho zdravi. Aktualizovany podle vaseho pokroku." data-en="Custom meal frameworks designed around your metabolic type, food sensitivities, and cellular health goals. Updated as your body evolves.">Jidelnicek na miru podle vaseho metabolickeho typu, potravinovych citlivosti a cilu bunecneho zdravi. Aktualizovany podle vaseho pokroku.</p>
+          <a href="#" class="service-link" data-cs="Vice informaci &rarr;" data-en="Learn More &rarr;">Vice informaci &rarr;</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#x1F52C;</div>
+          <h3 data-cs="Zdravotni analyzy" data-en="Health Assessments">Zdravotni analyzy</h3>
+          <p data-cs="Komplexni analyza vcetne interpretace laboratornich vysledku, telesneho slozeni a markeru bunecneho zdravi." data-en="Comprehensive analysis including functional lab interpretation, body composition, and cellular health markers to track your transformation.">Komplexni analyza vcetne interpretace laboratornich vysledku, telesneho slozeni a markeru bunecneho zdravi.</p>
+          <a href="#" class="service-link" data-cs="Vice informaci &rarr;" data-en="Learn More &rarr;">Vice informaci &rarr;</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#x1F4DA;</div>
+          <h3 data-cs="Online kurzy" data-en="Online Courses">Online kurzy</h3>
+          <p data-cs="Vzdelavaci moduly o bunecnem zdravi, obnove strev, metabolicke optimalizaci a dalsi. Ucte se vlastnim tempem." data-en="Self-paced educational modules on cellular health, gut restoration, metabolic optimisation, and more. Learn at your own rhythm.">Vzdelavaci moduly o bunecnem zdravi, obnove strev, metabolicke optimalizaci a dalsi. Ucte se vlastnim tempem.</p>
+          <a href="#" class="service-link" data-cs="Vice informaci &rarr;" data-en="Learn More &rarr;">Vice informaci &rarr;</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#x1F465;</div>
+          <h3 data-cs="Skupinove programy" data-en="Group Programmes">Skupinove programy</h3>
+          <p data-cs="Transformace v komunite. Pripojte se k malym skupinam pro vzajemnou motivaci, sdilene uceni a odpovednost." data-en="Community-driven transformation. Join small-group cohorts for accountability, shared learning, and collective motivation.">Transformace v komunite. Pripojte se k malym skupinam pro vzajemnou motivaci, sdilene uceni a odpovednost.</p>
+          <a href="#" class="service-link" data-cs="Vice informaci &rarr;" data-en="Learn More &rarr;">Vice informaci &rarr;</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#x2728;</div>
+          <h3 data-cs="Doporuceni doplnku" data-en="Supplement Guidance">Doporuceni doplnku</h3>
+          <p data-cs="Doporuceni doplnku stravy na zaklade vasich krevnich testu a zdravotnich markeru. Zadne hadani, pouze presnost." data-en="Evidence-based supplement recommendations tailored to your blood work and health markers. No guesswork, only precision.">Doporuceni doplnku stravy na zaklade vasich krevnich testu a zdravotnich markeru. Zadne hadani, pouze presnost.</p>
+          <a href="#" class="service-link" data-cs="Vice informaci &rarr;" data-en="Learn More &rarr;">Vice informaci &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HOW IT WORKS ═══ -->
+  <section class="how-it-works" id="process">
+    <div class="container">
+      <div class="how-it-works-header">
+        <span class="section-tag" data-cs="Vase cesta" data-en="Your Journey">Vase cesta</span>
+        <h2 class="section-title" data-cs="Jak to funguje" data-en="How It Works">Jak to funguje</h2>
+        <p class="section-subtitle" data-cs="Od prvni konzultace k trvale transformaci — jasna cesta k bunecne vitalite." data-en="From first consultation to lasting transformation — a clear path to cellular vitality.">Od prvni konzultace k trvale transformaci — jasna cesta k bunecne vitalite.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">01</div>
+          <h3 data-cs="Uvodni hovor" data-en="Discovery Call">Uvodni hovor</h3>
+          <p data-cs="Bezplatny uvodni hovor pro pochopeni vasich cilu, historie a ocekavani." data-en="A free introductory call to understand your goals, history, and what you're looking for.">Bezplatny uvodni hovor pro pochopeni vasich cilu, historie a ocekavani.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">02</div>
+          <h3 data-cs="Hloubkova analyza" data-en="Deep Assessment">Hloubkova analyza</h3>
+          <p data-cs="Komplexni zdravotni dotaznik a analyza laboratornich vysledku pro zmapovani vaseho bunecneho zdravi." data-en="Comprehensive health questionnaire and functional lab analysis to map your cellular health.">Komplexni zdravotni dotaznik a analyza laboratornich vysledku pro zmapovani vaseho bunecneho zdravi.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">03</div>
+          <h3 data-cs="Vlastni protokol" data-en="Custom Protocol">Vlastni protokol</h3>
+          <p data-cs="Vas personalizovany plan vyzivy, doplnku a zivotniho stylu — postaveny kolem vasi biologie." data-en="Your personalised nutrition, supplement, and lifestyle plan — built around your biology.">Vas personalizovany plan vyzivy, doplnku a zivotniho stylu — postaveny kolem vasi biologie.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">04</div>
+          <h3 data-cs="Prubezna podpora" data-en="Ongoing Support">Prubezna podpora</h3>
+          <p data-cs="Pravidelne kontroly, upravy planu a odpovednost pro udrzeni vasi transformace." data-en="Regular check-ins, plan adjustments, and accountability to keep your transformation on track.">Pravidelne kontroly, upravy planu a odpovednost pro udrzeni vasi transformace.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TESTIMONIALS ═══ -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="testimonials-header">
+        <span class="section-tag" data-cs="Reference klientu" data-en="Client Stories">Reference klientu</span>
+        <h2 class="section-title" data-cs="Skutecne promeny" data-en="Real Transformations">Skutecne promeny</h2>
+        <p class="section-subtitle" data-cs="Zde budou reference vasich skutecnych klientu." data-en="Real testimonials from your clients will go here.">Zde budou reference vasich skutecnych klientu.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote data-cs="&laquo;Sem bude doplnen text od skutecneho klienta.&raquo;" data-en="&laquo;Real client testimonial will be added here.&raquo;">&laquo;Sem bude doplnen text od skutecneho klienta.&raquo;</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">—</div>
+            <div class="testimonial-author-info">
+              <strong data-cs="Jmeno klienta" data-en="Client Name">Jmeno klienta</strong>
+              <span></span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote data-cs="&laquo;Sem bude doplnen text od skutecneho klienta.&raquo;" data-en="&laquo;Real client testimonial will be added here.&raquo;">&laquo;Sem bude doplnen text od skutecneho klienta.&raquo;</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">—</div>
+            <div class="testimonial-author-info">
+              <strong data-cs="Jmeno klienta" data-en="Client Name">Jmeno klienta</strong>
+              <span></span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote data-cs="&laquo;Sem bude doplnen text od skutecneho klienta.&raquo;" data-en="&laquo;Real client testimonial will be added here.&raquo;">&laquo;Sem bude doplnen text od skutecneho klienta.&raquo;</blockquote>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">—</div>
+            <div class="testimonial-author-info">
+              <strong data-cs="Jmeno klienta" data-en="Client Name">Jmeno klienta</strong>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA BANNER ═══ -->
+  <section class="cta-banner">
+    <div class="container">
+      <div class="cta-content">
+        <span class="section-tag" data-cs="Zacnete dnes" data-en="Start Today">Zacnete dnes</span>
+        <h2 data-cs="Jste pripraveni zmenit sve zdravi?" data-en="Ready to Transform Your Health?">Jste pripraveni zmenit sve zdravi?</h2>
+        <p data-cs="Objednejte si bezplatny uvodni hovor a ucinnte prvni krok k bunecne vitalite." data-en="Book your free discovery call and take the first step toward cellular vitality.">Objednejte si bezplatny uvodni hovor a ucinnte prvni krok k bunecne vitalite.</p>
+        <a href="#auth" class="btn-primary" data-cs="Bezplatna konzultace &rarr;" data-en="Book Free Discovery Call &rarr;">Bezplatna konzultace &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ AUTH PREVIEW ═══ -->
+  <section class="auth-preview" id="auth">
+    <div class="container">
+      <div class="auth-preview-header">
+        <span class="section-tag" data-cs="Klientsky portal" data-en="Client Portal">Klientsky portal</span>
+        <h2 class="section-title" data-cs="Pristup k vasemu uctu" data-en="Access Your Dashboard">Pristup k vasemu uctu</h2>
+        <p class="section-subtitle" style="margin: 0 auto;" data-cs="Prihlaste se a sledujte svuj pokrok, zobrazujte plany a objednavejte konzultace." data-en="Sign in to track your progress, view your plans, and book sessions.">Prihlaste se a sledujte svuj pokrok, zobrazujte plany a objednavejte konzultace.</p>
+      </div>
+      <div class="auth-cards">
+        <!-- Login -->
+        <div class="auth-card">
+          <h3 data-cs="Vitejte zpet" data-en="Welcome Back">Vitejte zpet</h3>
+          <p data-cs="Prihlaste se ke svemu uctu" data-en="Sign in to your account">Prihlaste se ke svemu uctu</p>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="vas@email.cz" />
+          </div>
+          <div class="form-group">
+            <label data-cs="Heslo" data-en="Password">Heslo</label>
+            <input type="password" placeholder="Zadejte heslo" />
+          </div>
+          <button class="auth-btn" data-cs="Prihlasit se" data-en="Sign In">Prihlasit se</button>
+          <div class="auth-divider" data-cs="nebo" data-en="or">nebo</div>
+          <button class="auth-social" data-cs="Pokracovat pres Google" data-en="Continue with Google">Pokracovat pres Google</button>
+        </div>
+        <!-- Sign Up -->
+        <div class="auth-card">
+          <h3 data-cs="Vytvorit ucet" data-en="Get Started">Vytvorit ucet</h3>
+          <p data-cs="Zaregistrujte se zdarma" data-en="Create your free account">Zaregistrujte se zdarma</p>
+          <div class="form-group">
+            <label data-cs="Cele jmeno" data-en="Full Name">Cele jmeno</label>
+            <input type="text" placeholder="Vase cele jmeno" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="vas@email.cz" />
+          </div>
+          <div class="form-group">
+            <label data-cs="Heslo" data-en="Password">Heslo</label>
+            <input type="password" placeholder="Vytvorte heslo" />
+          </div>
+          <button class="auth-btn" data-cs="Vytvorit ucet" data-en="Create Account">Vytvorit ucet</button>
+          <div class="auth-divider" data-cs="nebo" data-en="or">nebo</div>
+          <button class="auth-social" data-cs="Registrace pres Google" data-en="Sign Up with Google">Registrace pres Google</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>MetaHealth</h3>
+          <p data-cs="Bunecne zdravi, vyziva a vitalita. Barbora Paskova — certifikovana nutricni poradkyne." data-en="Cellular wealth, nutrition health, and vitality coaching. Barbora Paskova — certified nutritionist.">Bunecne zdravi, vyziva a vitalita. Barbora Paskova — certifikovana nutricni poradkyne.</p>
+        </div>
+        <div class="footer-col">
+          <h4 data-cs="Rychle odkazy" data-en="Quick Links">Rychle odkazy</h4>
+          <ul>
+            <li><a href="#about" data-cs="O mne" data-en="About">O mne</a></li>
+            <li><a href="#services" data-cs="Sluzby" data-en="Services">Sluzby</a></li>
+            <li><a href="#process" data-cs="Proces" data-en="Process">Proces</a></li>
+            <li><a href="#testimonials" data-cs="Reference" data-en="Testimonials">Reference</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-cs="Sluzby" data-en="Services">Sluzby</h4>
+          <ul>
+            <li><a href="#" data-cs="Individualni koucink" data-en="1-on-1 Coaching">Individualni koucink</a></li>
+            <li><a href="#" data-cs="Nutricni plany" data-en="Nutrition Plans">Nutricni plany</a></li>
+            <li><a href="#" data-cs="Zdravotni analyzy" data-en="Health Assessments">Zdravotni analyzy</a></li>
+            <li><a href="#" data-cs="Online kurzy" data-en="Online Courses">Online kurzy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-cs="Kontakt" data-en="Connect">Kontakt</h4>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Email</a></li>
+            <li><a href="#" data-cs="Objednat hovor" data-en="Book a Call">Objednat hovor</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 MetaHealth. Vsechna prava vyhrazena.</span>
+        <span><a href="#" data-cs="Zasady ochrany soukromi" data-en="Privacy Policy">Zasady ochrany soukromi</a> &middot; <a href="#" data-cs="Obchodni podminky" data-en="Terms of Service">Obchodni podminky</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      var menu = document.getElementById('mobileMenu');
+      var overlay = document.getElementById('menuOverlay');
+      var menuBtn = document.getElementById('menuBtn');
+      var langBtn = document.getElementById('langBtn');
+      var currentLang = 'cs';
+
+      function openMenu() {
+        menu.classList.add('open');
+        overlay.classList.add('open');
+        menuBtn.classList.add('active');
+      }
+
+      function closeMenu() {
+        menu.classList.remove('open');
+        overlay.classList.remove('open');
+        menuBtn.classList.remove('active');
+      }
+
+      // ── Hamburger Menu ──
+      menuBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (menu.classList.contains('open')) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+
+      // Close on overlay click
+      overlay.addEventListener('click', closeMenu);
+
+      // Close menu when any menu link is clicked
+      var menuLinks = document.querySelectorAll('.menu-link');
+      for (var i = 0; i < menuLinks.length; i++) {
+        menuLinks[i].addEventListener('click', closeMenu);
+      }
+
+      // ── Language Switcher ──
+      langBtn.addEventListener('click', function() {
+        currentLang = currentLang === 'cs' ? 'en' : 'cs';
+        langBtn.textContent = currentLang === 'cs' ? 'EN' : 'CS';
+        document.documentElement.lang = currentLang;
+
+        var els = document.querySelectorAll('[data-cs][data-en]');
+        for (var j = 0; j < els.length; j++) {
+          var el = els[j];
+          var text = el.getAttribute('data-' + currentLang);
+          if (el.tagName === 'INPUT') {
+            el.placeholder = text;
+          } else {
+            el.innerHTML = text;
+          }
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
