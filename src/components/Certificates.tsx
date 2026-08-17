@@ -10,41 +10,36 @@ export default function Certificates() {
       <div className="container">
         <div className="certificates-header">
           <span className="section-tag">{t("Kvalifikace", "Credentials")}</span>
-          <h2 className="section-title">{t("Certifikaty a vzdelani", "Certificates & Education")}</h2>
+          <h2 className="section-title">{t("Certifikáty a vzdělání", "Certificates & Education")}</h2>
           <p className="section-subtitle">
             {t(
-              "Akreditovane kurzy od NutriAcademy (akreditace MSMT). Barbora Paskova, DiS.",
+              "Akreditované kurzy od NutriAcademy (akreditace MŠMT). Barbora Pašková, DiS.",
               "Accredited courses from NutriAcademy (MSMT accreditation). Barbora Paskova, DiS."
             )}
           </p>
         </div>
         <div className="cert-grid">
           <div className="cert-card">
-            <img src="/images/cert-1.jpg" alt="Certifikat - Vyzivovy poradce" />
+            <img src="/images/cert-1.jpg" alt="Certifikát - Výživový poradce" />
             <div className="cert-card-info">
-              <h4>Vyzivovy poradce — Online program</h4>
-              <p>NutriAcademy, 150 studijnich hodin</p>
+              <h4>Výživový poradce — Online program</h4>
+              <p>NutriAcademy, 150 studijních hodin</p>
             </div>
           </div>
           <div className="cert-card">
-            <img src="/images/cert-2.jpg" alt="Certifikat - Keto & Low Carb + Probiotika" />
+            <img src="/images/cert-2.jpg" alt="Certifikát - Keto & Low Carb + Probiotika" />
             <div className="cert-card-info">
               <h4>Keto &amp; Low Carb + Probiotika</h4>
               <p>NutriAcademy</p>
             </div>
           </div>
+        </div>
+        <div className="cert-grid-single">
           <div className="cert-card">
-            <img src="/images/cert-3.jpg" alt="Certifikat - Prvni pomoc" />
+            <img src="/images/cert-4.jpg" alt="Certifikát - Senzorická analýza potravin" />
             <div className="cert-card-info">
-              <h4>Certifikat prvni pomoci</h4>
-              <p>NutriAcademy, akreditace MSMT</p>
-            </div>
-          </div>
-          <div className="cert-card">
-            <img src="/images/cert-4.jpg" alt="Certifikat - Senzoricka analyza potravin" />
-            <div className="cert-card-info">
-              <h4>Senzoricka analyza potravin</h4>
-              <p>NutriAcademy, akreditace MSMT</p>
+              <h4>Senzorická analýza potravin</h4>
+              <p>NutriAcademy, akreditace MŠMT</p>
             </div>
           </div>
         </div>

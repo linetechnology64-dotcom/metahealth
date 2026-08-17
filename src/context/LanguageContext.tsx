@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react";
 
 type Lang = "cs" | "en";
 
@@ -19,8 +19,25 @@ const LanguageContext = createContext<LanguageContextType>({
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("cs");
 
+  useEffect(() => {
+    const saved = localStorage.getItem("metahealth-lang") as Lang | null;
+    if (saved === "cs" || saved === "en") {
+      setLang(saved);
+    } else {
+      // Auto-detect from browser language
+      const browserLang = navigator.language || "";
+      const detected = browserLang.startsWith("cs") ? "cs" : "en";
+      setLang(detected);
+      localStorage.setItem("metahealth-lang", detected);
+    }
+  }, []);
+
   const toggle = useCallback(() => {
-    setLang((prev) => (prev === "cs" ? "en" : "cs"));
+    setLang((prev) => {
+      const next = prev === "cs" ? "en" : "cs";
+      localStorage.setItem("metahealth-lang", next);
+      return next;
+    });
   }, []);
 
   const t = useCallback(
